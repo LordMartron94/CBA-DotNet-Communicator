@@ -2,7 +2,3 @@
 	path = cba_dotnet_communicator/components/cli_bench
 	url = https://github.com/LordMartron94/CLI-Bench
 	branch = main
-[submodule "MD.Common"]
-	path = cba_dotnet_communicator/components/md.dotnet.common
-	url = https://github.com/LordMartron94/MD.Common
-	branch = main
