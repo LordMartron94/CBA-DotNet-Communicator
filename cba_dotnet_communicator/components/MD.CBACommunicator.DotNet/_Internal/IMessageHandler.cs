@@ -2,7 +2,7 @@
 
 namespace MD.CBACommunicator.DotNet._Internal;
 
-internal interface IMessageHandler
+public interface IMessageHandler
 {
     /// <summary>
     /// Subscribes to the send message event.

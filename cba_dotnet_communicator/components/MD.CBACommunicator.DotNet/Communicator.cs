@@ -18,7 +18,7 @@ public class Communicator
     private readonly RegistrationHandler _registrationHandler;
     private SettingsContext? _context;
     
-    private IMessageHandler _messageHandler;
+    private readonly IMessageHandler _messageHandler;
     
     /// <remarks>
     /// Don't forget to call <see cref="Initialize"/> after constructing this instance.
@@ -90,6 +90,14 @@ public class Communicator
     {
         EnsureInitialized();
         return _messageHandler.SendResponse(responseCode, responseMessage, targetID);
+    }
+
+    /// <summary>
+    /// Returns the current message handler.
+    /// </summary>
+    public IMessageHandler GetMessageHandler()
+    {
+        return _messageHandler;
     }
     
     private void SendShutdownMessage()
