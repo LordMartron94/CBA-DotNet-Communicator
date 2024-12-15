@@ -22,11 +22,11 @@ public class Communicator
     /// <remarks>
     /// Don't forget to call <see cref="Initialize"/> after constructing this instance.
     /// </remarks>
-    public Communicator()
+    public Communicator(int componentPort = 50002)
     {
         MessageProcessorSelector messageProcessor = new MessageProcessorSelector();
         _connector = new Connector(messageProcessor);
-        _socket = _connector.ConnectToRemote(Constants.ServerHost, Constants.ServerPort, Constants.ComponentPort);
+        _socket = _connector.ConnectToRemote(Constants.ServerHost, Constants.ServerPort, componentPort);
 
         if (_socket == null)
             throw new Exception("Failed to connect to server");
