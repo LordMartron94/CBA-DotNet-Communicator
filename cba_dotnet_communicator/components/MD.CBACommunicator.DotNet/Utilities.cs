@@ -6,15 +6,17 @@ namespace MD.CBACommunicator.DotNet;
 
 public static class Utilities
 {
-    public static Message GetMessageFromSharedResource(string resourceName, MessagePayload? messagePayload = null)
+    public static string GetEmbeddedResourceString(string resourceName, Assembly associatedAssembly)
     {
-        // Note to self: Do not use Time Execution Logging here, as it will cause infinite recursion (time execution -> log -> send message -> time execution)
-
-        Assembly assembly = Assembly.GetExecutingAssembly();
-        using Stream stream = assembly.GetManifestResourceStream(resourceName) ?? throw new InvalidOperationException($"{resourceName} JSON not included!");
+        using Stream stream = associatedAssembly.GetManifestResourceStream(resourceName) ?? throw new InvalidOperationException($"{resourceName} not found in {associatedAssembly.FullName}");
         using StreamReader reader = new StreamReader(stream);
+        return reader.ReadToEnd();
+    }
 
-        Message message = JsonConvert.DeserializeObject<Message>(reader.ReadToEnd());
+    public static Message GetMessageFromSharedResource(string resourceName, Assembly associatedAssembly, MessagePayload? messagePayload = null)
+    {
+        string json = GetEmbeddedResourceString(resourceName, associatedAssembly); 
+        Message message = JsonConvert.DeserializeObject<Message>(json);
         message = new Message(message.payload);
 
         if (messagePayload != null)

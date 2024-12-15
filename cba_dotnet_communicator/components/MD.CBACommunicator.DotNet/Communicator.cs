@@ -1,4 +1,5 @@
 ﻿using System.Net.Sockets;
+using System.Reflection;
 using MD.CBACommunicator.DotNet._Internal;
 using MD.CBACommunicator.DotNet._Internal.Connectivity;
 using MD.CBACommunicator.DotNet._Internal.Processing;
@@ -42,10 +43,10 @@ public class Communicator
     /// Initializes the communicator with the provided settings.
     /// </summary>
     /// <param name="context"></param>
-    public void Initialize(SettingsContext context)
+    public void Initialize(SettingsContext context, Assembly registrationAssembly)
     {
         _context = context;
-        _registrationHandler.Register(_context.Value.RegistrationEmbeddedResourcePath);
+        _registrationHandler.Register(_context.Value.RegistrationEmbeddedResourcePath, registrationAssembly);
     }
     
     /// <summary>

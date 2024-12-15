@@ -1,4 +1,5 @@
 ﻿using System.Net.Sockets;
+using System.Reflection;
 using MD.CBACommunicator.DotNet._Internal.Connectivity;
 using MD.CBACommunicator.DotNet.Model;
 
@@ -18,9 +19,9 @@ internal class RegistrationHandler
         _socket = socket;
     }
     
-    public void Register(string registrationEmbeddedResourcePath)
+    public void Register(string registrationEmbeddedResourcePath, Assembly registrationAssembly)
     {
-        Message message = Utilities.GetMessageFromSharedResource(registrationEmbeddedResourcePath);
+        Message message = Utilities.GetMessageFromSharedResource(registrationEmbeddedResourcePath, registrationAssembly);
         _connector.SendMessage(_socket, message);
         _connector.StartKeepAliveMessageLoop(_socket);
     }
